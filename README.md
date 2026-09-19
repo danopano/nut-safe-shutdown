@@ -1,5 +1,16 @@
 # NUT Safe Shutdown
 
+## Preface from the human
+
+I had bought a CyberPower CP1500PFCLCD PSU to act as battery backup for my server and NAS with the intent of connecting the PSU to one system or the other and orchestrate safe shutdown of both systems.
+I figured this was not new ground, and I tasked AI (Codex + ChatGPT) with the busywork of setting that up.
+However, this quickly turned into a painful, tortuous process, involving many failed attempts and hard shutdowns, betrayed by overconfident AI decision-making.
+AT LAST, after maybe a dozen hours, we did get it to work as desired: PSU detects mains power off, server hears this over USB, server tells NAS to shut down, server itself shuts down, PSU stops providing power.
+And so, in hopes that someone else may be spared my headaches, I offer this repo of our findings.
+Yes, the content is AI generated. But it is tested. I would suggest you have your AI of choice digest this material, and then test on your setup BEFORE connecting your systems to the PSU's outputs.
+
+## Technical overview
+
 This repository is a safety-oriented guide to configuring and validating
 [Network UPS Tools (NUT)](https://networkupstools.org/) shutdown behavior.
 Its central claim is simple:
