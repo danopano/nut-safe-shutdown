@@ -1,0 +1,16 @@
+#!/bin/sh
+# EXAMPLE ONLY. This script arms FSD and therefore must not be run casually.
+# Install only after adapting paths, permissions, logging, and policy.
+
+set -eu
+
+case "${1:-}" in
+    sustained-onbatt)
+        logger -t upssched-cmd -- "sustained ONBATT timer expired; requesting FSD"
+        exec /usr/sbin/upsmon -c fsd
+        ;;
+    *)
+        logger -t upssched-cmd -- "ignoring unknown event"
+        exit 0
+        ;;
+esac

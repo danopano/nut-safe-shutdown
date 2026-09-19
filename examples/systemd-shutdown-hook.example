@@ -1,0 +1,31 @@
+#!/bin/sh
+# EXAMPLE ONLY -- DEVICE-SPECIFIC TERMINAL KILLPOWER.
+#
+# This pattern is appropriate only after the exact driver command and delay/
+# return behavior have passed sacrificial and isolated production validation.
+# Discover the actual systemd-shutdown directory and driver path. Ensure no
+# second executable NUT killpower hook remains in that directory.
+
+set -u
+
+UPS_NAME=ups
+UPSMON=/usr/sbin/upsmon
+# Required adaptation: replace this deliberately invalid placeholder with the
+# exact path from the installed package/build.
+HID_DRIVER=/PATH/TO/usbhid-ups
+
+# systemd-shutdown passes "poweroff" for the relevant final action.
+[ "${1:-}" = poweroff ] || exit 0
+[ -x "$UPSMON" ] || exit 1
+[ -x "$HID_DRIVER" ] || exit 1
+
+# Do nothing unless the NUT power-down flag is valid.
+"$UPSMON" -K >/dev/null 2>&1 || exit 0
+
+# Exactly one terminal attempt; intentionally no retry. These settings are from
+# one validated CP1500PFCLCDa case study and are NOT generic defaults.
+exec "$HID_DRIVER" -a "$UPS_NAME" \
+    -x offdelay=60 \
+    -x ondelay=0 \
+    -x sdcommands=shutdown.return \
+    -k

@@ -1,0 +1,9 @@
+# EXAMPLE ONLY. Confirm paths and policy on the target installation.
+
+CMDSCRIPT /usr/local/sbin/upssched-cmd
+PIPEFN /run/nut/upssched.pipe
+LOCKFN /run/nut/upssched.lock
+
+# Require sustained battery operation before FSD; cancel if utility returns.
+AT ONBATT * START-TIMER sustained-onbatt 120
+AT ONLINE * CANCEL-TIMER sustained-onbatt

@@ -1,0 +1,14 @@
+# EXAMPLE ONLY. Adapt to the exact UPS, driver, permissions, and NUT version.
+# Do not copy case-study terminal overrides into normal runtime configuration.
+
+[ups]
+    driver = usbhid-ups
+    port = auto
+    # Device matching options may be needed when multiple HID devices exist.
+    # Avoid publishing serial numbers in diagnostics or public repositories.
+    offdelay = 0
+    ondelay = 0
+    pollonly
+
+# Validate live variables after driver initialization. A configured value does
+# not guarantee that firmware exposes or implements the same effective value.

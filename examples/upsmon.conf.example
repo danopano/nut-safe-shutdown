@@ -1,0 +1,15 @@
+# EXAMPLE ONLY. Merge with distribution defaults and use locally managed
+# credentials. Never publish MONITOR passwords.
+
+# MONITOR ups@localhost 1 monitor-user REPLACE_WITH_LOCAL_SECRET primary
+SHUTDOWNCMD "/sbin/shutdown -h +0"
+HOSTSYNC 15
+POWERDOWNFLAG /etc/killpower
+
+# Size FINALDELAY from evidence about secondary shutdown while networking and
+# full userspace remain available. This example value is not universal.
+FINALDELAY 60
+
+# NOTIFYCMD /usr/sbin/upssched
+# NOTIFYFLAG ONBATT SYSLOG+EXEC
+# NOTIFYFLAG ONLINE SYSLOG+EXEC
